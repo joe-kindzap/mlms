@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Marker.io LMS Widget Generator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 32px 20px;
+      background: #f8f9fa;
+      min-height: 100vh;
+    }
+    .header {
+      text-align: center;
+      padding: 20px 0 32px 0;
+      margin-bottom: 8px;
+    }
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: #e53935;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo-icon svg {
+      width: 24px;
+      height: 24px;
+      fill: white;
+    }
+    h1 {
+      color: #1a1a1a;
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+    }
+    .subtitle {
+      color: #666;
+      margin: 6px 0 0 0;
+      font-size: 15px;
+    }
+    .poc-banner {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      color: #856404;
+      padding: 14px 20px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .poc-banner svg {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      fill: #856404;
+    }
+    .poc-banner-content {
+      flex: 1;
+    }
+    .poc-banner h3 {
+      margin: 0 0 2px 0;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .poc-banner p {
+      margin: 0;
+      font-size: 13px;
+    }
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 16px;
+      border: 1px solid #e0e0e0;
+    }
+    .card h2 {
+      margin: 0 0 18px 0;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #eee;
+      font-size: 15px;
+      font-weight: 600;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card h2 .step {
+      background: #e53935;
+      color: white;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      color: #444;
+    }
+    input[type="text"], select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+    input[type="text"]:focus, select:focus {
+      outline: none;
+      border-color: #e53935;
+    }
+    select {
+      cursor: pointer;
+      background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E") no-repeat right 12px center;
+      appearance: none;
+      padding-right: 36px;
+    }
+    .checkbox-group {
+      margin-bottom: 16px;
+    }
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      font-weight: normal;
+      cursor: pointer;
+      margin-bottom: 8px;
+      padding: 8px 12px;
+      background: #f8f9fa;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .checkbox-group label:hover {
+      background: #f0f0f0;
+    }
+    .checkbox-group input[type="checkbox"],
+    .checkbox-group input[type="radio"] {
+      margin-right: 10px;
+      width: 16px;
+      height: 16px;
+      accent-color: #e53935;
+    }
+    .help-text {
+      font-size: 12px;
+      color: #888;
+      margin-top: -12px;
+      margin-bottom: 16px;
+      padding-left: 4px;
+    }
+    .output-container {
+      position: relative;
+    }
+    #output {
+      width: 100%;
+      height: 260px;
+      font-family: 'SF Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 12px;
+      padding: 14px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background: #fafafa;
+      color: #333;
+      resize: vertical;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: #e53935;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn:hover {
+      background: #c62828;
+    }
+    .btn-secondary {
+      background: #6c757d;
+    }
+    .btn-secondary:hover {
+      background: #545b62;
+    }
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .success-message {
+      display: none;
+      color: #2e7d32;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 16px;
+      background: #e8f5e9;
+      border-radius: 8px;
+    }
+    .instructions {
+      background: #f8f9fa;
+      border-left: 3px solid #e53935;
+      padding: 16px;
+      margin-top: 16px;
+      border-radius: 0 6px 6px 0;
+    }
+    .instructions h3 {
+      margin: 0 0 10px 0;
+      color: #333;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .instructions ol {
+      margin: 0;
+      padding-left: 18px;
+      color: #555;
+      font-size: 13px;
+    }
+    .instructions li {
+      margin-bottom: 6px;
+    }
+    .instructions code {
+      background: #e9ecef;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+    .security-card {
+      background: #f0fff4;
+      border-color: #c3e6cb;
+    }
+    .security-card h2 {
+      color: #155724;
+      border-bottom-color: #c3e6cb;
+    }
+    .security-card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: #155724;
+      font-size: 13px;
+    }
+    .security-card li {
+      margin-bottom: 6px;
+    }
+    footer {
+      text-align: center;
+      color: #999;
+      font-size: 12px;
+      margin-top: 40px;
+      padding-bottom: 40px;
+    }
+    footer a {
+      color: #666;
+    }
+    .error {
+      border-color: #e53935 !important;
+    }
+    .error-message {
+      color: #e53935;
+      font-size: 12px;
+      margin-top: -12px;
+      margin-bottom: 16px;
+      display: none;
+    }
+    @media (max-width: 600px) {
+      body {
+        padding: 16px;
+      }
+      .header {
+        padding: 16px 0 24px 0;
+      }
+      h1 {
+        font-size: 20px;
+      }
+      .card {
+        padding: 18px;
+      }
+      .btn-group {
+        flex-direction: column;
+      }
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.2L4 17.2V4h16v12z"/>
+          <circle cx="12" cy="10" r="2"/>
+          <circle cx="7" cy="10" r="2"/>
+          <circle cx="17" cy="10" r="2"/>
+        </svg>
+      </div>
+      <h1>LMS Widget Generator</h1>
+    </div>
+    <p class="subtitle">Add Marker.io feedback to your Learning Management System</p>
+  </div>
+
+  <div class="poc-banner">
+    <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+    </svg>
+    <div class="poc-banner-content">
+      <h3>Proof of Concept - Testing Only</h3>
+      <p>This tool is in early development. Not recommended for production use yet. Feedback welcome!</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="step">1</span> Select Your LMS</h2>
+    <label for="lms">Learning Management System</label>
+    <select id="lms">
+      <option value="moodle">Moodle</option>
+      <option value="canvas">Canvas LMS</option>
+    </select>
+  </div>
+
+  <div class="card">
+    <h2><span class="step">2</span> Enter Your Marker.io Project ID</h2>
+    <label for="projectId">Project ID</label>
+    <input type="text" id="projectId" placeholder="e.g., 69354206c4f072f1a1e005ba">
+    <p class="error-message" id="projectIdError">Please enter a valid project ID</p>
+    <p class="help-text">Find this in Marker.io &rarr; Project Settings &rarr; Widget</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="step">3</span> Targeting Mode</h2>
+
+    <label>Security approach:</label>
+    <div class="checkbox-group">
+      <label><input type="radio" name="targetMode" value="restrictive" id="modeRestrictive" checked> <strong>Restrictive (recommended)</strong> — Only show on selected pages</label>
+      <label><input type="radio" name="targetMode" value="permissive" id="modePermissive"> Permissive — Show everywhere except selected pages</label>
+    </div>
+    <p class="help-text">Restrictive mode follows the principle of least privilege</p>
+  </div>
+
+  <div class="card" id="restrictiveOptions">
+    <h2><span class="step">4</span> Where to Show Widget</h2>
+
+    <label>Show widget on these pages:</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" id="showCourse" checked> Course pages</label>
+      <label><input type="checkbox" id="showActivity" checked> Activity pages (quizzes, assignments, forums)</label>
+      <label><input type="checkbox" id="showDashboard"> Dashboard/Home page</label>
+      <label><input type="checkbox" id="showAdmin"> Admin/Settings pages</label>
+    </div>
+
+    <label>Show widget for these roles:</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" id="showStudent" checked> Students</label>
+      <label><input type="checkbox" id="showTeacher" checked> Teachers/Instructors</label>
+      <label><input type="checkbox" id="showAdminRole"> Administrators</label>
+    </div>
+
+    <label for="onlyCourses">Only on specific courses (optional)</label>
+    <input type="text" id="onlyCourses" placeholder="e.g., PILOT101, BETA202">
+    <p class="help-text">Leave empty for all courses. Comma-separated course names.</p>
+  </div>
+
+  <div class="card" id="permissiveOptions" style="display: none;">
+    <h2><span class="step">4</span> Where to Hide Widget</h2>
+
+    <label>Hide widget on these pages:</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" id="hideLogin" checked> Login pages</label>
+      <label><input type="checkbox" id="hideAdmin" checked> Admin/Settings pages</label>
+      <label><input type="checkbox" id="hideProfile" checked> User profile pages</label>
+      <label><input type="checkbox" id="hideGrades" checked> Grade reports</label>
+    </div>
+
+    <label>Hide widget for these roles:</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" id="hideGuest" checked> Guests (not logged in)</label>
+      <label><input type="checkbox" id="hideStudent2"> Students</label>
+      <label><input type="checkbox" id="hideTeacher2"> Teachers/Instructors</label>
+      <label><input type="checkbox" id="hideAdmin2"> Administrators</label>
+    </div>
+
+    <label for="excludeCourses">Hide on specific courses (optional)</label>
+    <input type="text" id="excludeCourses" placeholder="e.g., TEST101, SANDBOX, DEMO">
+    <p class="help-text">Comma-separated course names or shortnames</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="step">5</span> Privacy Options</h2>
+
+    <div class="checkbox-group">
+      <label><input type="checkbox" id="autoFillUser" checked> Auto-fill reporter name/email (when available)</label>
+    </div>
+    <p class="help-text">Disable if your institution's privacy policy prohibits automatic user identification</p>
+
+    <label><input type="checkbox" id="enableDebug"> Enable debug mode (for testing only)</label>
+  </div>
+
+  <div class="card">
+    <h2><span class="step">6</span> Copy Your Code</h2>
+    <div class="output-container">
+      <textarea id="output" readonly></textarea>
+    </div>
+    <div class="btn-group">
+      <button class="btn" onclick="copyCode()">Copy to Clipboard</button>
+      <button class="btn btn-secondary" onclick="downloadCode()">Download File</button>
+      <span class="success-message" id="copySuccess">Copied!</span>
+    </div>
+
+    <div class="instructions" id="moodleInstructions">
+      <h3>Installation Instructions for Moodle</h3>
+      <ol>
+        <li>Log in to Moodle as an administrator</li>
+        <li>Go to <code>Site administration</code> &rarr; <code>Appearance</code> &rarr; <code>Additional HTML</code></li>
+        <li>Paste the code above into the <code>Before BODY is closed</code> text box</li>
+        <li>Click <code>Save changes</code></li>
+        <li>Visit any page to verify the red feedback button appears</li>
+      </ol>
+    </div>
+
+    <div class="instructions" id="canvasInstructions" style="display: none;">
+      <h3>Installation Instructions for Canvas LMS</h3>
+      <ol>
+        <li>Log in to Canvas as an administrator</li>
+        <li>Go to <code>Admin</code> &rarr; <code>Settings</code> &rarr; <code>Themes</code></li>
+        <li>Click <code>Edit Theme</code> or create a new theme</li>
+        <li>Navigate to the <code>JavaScript/CSS</code> tab</li>
+        <li>Paste the code above into the <code>JavaScript</code> section</li>
+        <li>Click <code>Save Theme</code> and apply it</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card security-card">
+    <h2>Security Best Practices</h2>
+    <ul>
+      <li><strong>Use restrictive mode</strong> — Only show widget where feedback is needed</li>
+      <li><strong>Configure domain allowlist</strong> — In Marker.io dashboard, restrict which domains can use your project ID</li>
+      <li><strong>Exclude sensitive pages</strong> — Grade reports, admin settings, and profile pages</li>
+      <li><strong>Consider privacy</strong> — Disable auto-fill if your institution requires explicit consent</li>
+      <li><strong>Test first</strong> — Enable debug mode and verify targeting works as expected</li>
+    </ul>
+  </div>
+
+  <footer>
+    <p>Community project — not an official Marker.io product</p>
+    <p><a href="https://marker.io" target="_blank">Marker.io</a> &bull; <a href="https://help.marker.io" target="_blank">Support</a> &bull; <a href="https://github.com" target="_blank">GitHub</a></p>
+  </footer>
+
+  <script>
+    // Generate code on any input change
+    document.querySelectorAll('input, select').forEach(function(el) {
+      el.addEventListener('change', generateCode);
+      el.addEventListener('input', generateCode);
+    });
+
+    // Show/hide instructions based on LMS
+    document.getElementById('lms').addEventListener('change', function() {
+      var isMoodle = this.value === 'moodle';
+      document.getElementById('moodleInstructions').style.display = isMoodle ? 'block' : 'none';
+      document.getElementById('canvasInstructions').style.display = isMoodle ? 'none' : 'block';
+      generateCode();
+    });
+
+    // Toggle targeting mode panels
+    document.querySelectorAll('input[name="targetMode"]').forEach(function(el) {
+      el.addEventListener('change', function() {
+        var isRestrictive = document.getElementById('modeRestrictive').checked;
+        document.getElementById('restrictiveOptions').style.display = isRestrictive ? 'block' : 'none';
+        document.getElementById('permissiveOptions').style.display = isRestrictive ? 'none' : 'block';
+        generateCode();
+      });
+    });
+
+    function generateCode() {
+      var lms = document.getElementById('lms').value;
+      var projectId = document.getElementById('projectId').value.trim();
+      var isRestrictive = document.getElementById('modeRestrictive').checked;
+      var autoFillUser = document.getElementById('autoFillUser').checked;
+      var debug = document.getElementById('enableDebug').checked;
+
+      // Validate project ID format (alphanumeric, typically 24 chars)
+      var projectIdInput = document.getElementById('projectId');
+      var projectIdError = document.getElementById('projectIdError');
+      var isValidProjectId = projectId && /^[a-zA-Z0-9]{20,30}$/.test(projectId);
+
+      if (projectId && !isValidProjectId) {
+        projectIdInput.classList.add('error');
+        projectIdError.style.display = 'block';
+      } else {
+        projectIdInput.classList.remove('error');
+        projectIdError.style.display = 'none';
+      }
+
+      // Don't generate code until a valid project ID is entered
+      if (!isValidProjectId) {
+        document.getElementById('output').value = '// Enter your Marker.io Project ID above to generate the code.\n// \n// Find your Project ID in Marker.io:\n//   1. Log in to marker.io\n//   2. Go to Project Settings\n//   3. Click Widget\n//   4. Copy the Project ID (24-character string)';
+        return;
+      }
+
+      var config = {
+        mode: isRestrictive ? 'restrictive' : 'permissive',
+        autoFillUser: autoFillUser
+      };
+
+      if (isRestrictive) {
+        // Restrictive: collect what to ALLOW
+        config.allowPages = [];
+        if (document.getElementById('showCourse').checked) config.allowPages.push("'course'");
+        if (document.getElementById('showActivity').checked) config.allowPages.push("'mod'");
+        if (document.getElementById('showDashboard').checked) config.allowPages.push("'my'");
+        if (document.getElementById('showAdmin').checked) config.allowPages.push("'admin'");
+
+        config.allowRoles = [];
+        if (document.getElementById('showStudent').checked) config.allowRoles.push("'Student'");
+        if (document.getElementById('showTeacher').checked) config.allowRoles.push("'Teacher'");
+        if (document.getElementById('showAdminRole').checked) config.allowRoles.push("'Administrator'");
+
+        config.onlyCourses = document.getElementById('onlyCourses').value
+          .split(',')
+          .map(function(c) { return c.trim(); })
+          .filter(function(c) { return c.length > 0; })
+          .map(function(c) { return "'" + c.replace(/'/g, "\\'") + "'"; });
+      } else {
+        // Permissive: collect what to EXCLUDE
+        config.excludePages = [];
+        if (document.getElementById('hideLogin').checked) config.excludePages.push("'login'");
+        if (document.getElementById('hideAdmin').checked) config.excludePages.push("'admin'");
+        if (document.getElementById('hideProfile').checked) config.excludePages.push("'user'");
+        if (document.getElementById('hideGrades').checked) config.excludePages.push("'grade'");
+
+        config.excludeRoles = [];
+        if (document.getElementById('hideGuest').checked) config.excludeRoles.push("'Guest'");
+        if (document.getElementById('hideStudent2').checked) config.excludeRoles.push("'Student'");
+        if (document.getElementById('hideTeacher2').checked) config.excludeRoles.push("'Teacher'");
+        if (document.getElementById('hideAdmin2').checked) config.excludeRoles.push("'Administrator'");
+
+        config.excludeCourses = document.getElementById('excludeCourses').value
+          .split(',')
+          .map(function(c) { return c.trim(); })
+          .filter(function(c) { return c.length > 0; })
+          .map(function(c) { return "'" + c.replace(/'/g, "\\'") + "'"; });
+      }
+
+      var code;
+      if (lms === 'moodle') {
+        code = generateMoodleCode(projectId, config, debug);
+      } else {
+        code = generateCanvasCode(projectId, config, debug);
+      }
+
+      document.getElementById('output').value = code;
+    }
+
+    function generateMoodleCode(projectId, config, debug) {
+      var pid = projectId || 'YOUR_PROJECT_ID';
+      var isRestrictive = config.mode === 'restrictive';
+
+      var configSection;
+      if (isRestrictive) {
+        configSection =
+        "    // RESTRICTIVE MODE: Widget only shows on allowed pages/roles\n" +
+        "    mode: 'restrictive',\n" +
+        '    allowPages: [' + config.allowPages.join(', ') + '],  // course, mod, my\n' +
+        '    allowRoles: [' + config.allowRoles.join(', ') + '],\n' +
+        '    onlyCourses: [' + config.onlyCourses.join(', ') + '],  // empty = all courses\n';
+      } else {
+        configSection =
+        "    // PERMISSIVE MODE: Widget shows everywhere except excluded\n" +
+        "    mode: 'permissive',\n" +
+        '    excludePages: [' + config.excludePages.join(', ') + '],\n' +
+        '    excludeRoles: [' + config.excludeRoles.join(', ') + '],\n' +
+        '    excludeCourses: [' + config.excludeCourses.join(', ') + '],\n';
+      }
+
+      var shouldShowFn;
+      if (isRestrictive) {
+        shouldShowFn =
+        '  function shouldShow() {\n' +
+        '    var role = getUserRole(), page = getPageType();\n' +
+        '    log("Role:", role); log("Page:", page);\n' +
+        '    // Must match an allowed role\n' +
+        '    var roleMatch = false;\n' +
+        '    for (var i = 0; i < CONFIG.allowRoles.length; i++) {\n' +
+        '      if (CONFIG.allowRoles[i].toLowerCase() === role.toLowerCase()) { roleMatch = true; break; }\n' +
+        '    }\n' +
+        '    if (!roleMatch) { log("Hidden: role not in allowlist"); return false; }\n' +
+        '    // Must match an allowed page type\n' +
+        '    var pageMatch = false;\n' +
+        '    for (var j = 0; j < CONFIG.allowPages.length; j++) {\n' +
+        '      if (CONFIG.allowPages[j].toLowerCase() === page.toLowerCase()) { pageMatch = true; break; }\n' +
+        '    }\n' +
+        '    if (!pageMatch) { log("Hidden: page not in allowlist"); return false; }\n' +
+        '    // If specific courses set, must match one\n' +
+        '    if (CONFIG.onlyCourses.length > 0) {\n' +
+        "      var bc = document.querySelector('.breadcrumb a[href*=\"/course/view\"]');\n" +
+        '      if (bc) {\n' +
+        '        var cn = bc.textContent.trim().toLowerCase();\n' +
+        '        var courseMatch = false;\n' +
+        '        for (var k = 0; k < CONFIG.onlyCourses.length; k++) {\n' +
+        '          if (cn.includes(CONFIG.onlyCourses[k].toLowerCase())) { courseMatch = true; break; }\n' +
+        '        }\n' +
+        '        if (!courseMatch) { log("Hidden: course not in allowlist"); return false; }\n' +
+        '      }\n' +
+        '    }\n' +
+        '    log("Visible: all checks passed");\n' +
+        '    return true;\n' +
+        '  }\n';
+      } else {
+        shouldShowFn =
+        '  function shouldShow() {\n' +
+        '    var role = getUserRole(), page = getPageType();\n' +
+        '    log("Role:", role); log("Page:", page);\n' +
+        '    for (var i = 0; i < CONFIG.excludeRoles.length; i++) {\n' +
+        '      if (CONFIG.excludeRoles[i].toLowerCase() === role.toLowerCase()) {\n' +
+        '        log("Hidden: role excluded"); return false;\n' +
+        '      }\n' +
+        '    }\n' +
+        '    for (var j = 0; j < CONFIG.excludePages.length; j++) {\n' +
+        '      if (CONFIG.excludePages[j].toLowerCase() === page.toLowerCase()) {\n' +
+        '        log("Hidden: page excluded"); return false;\n' +
+        '      }\n' +
+        '    }\n' +
+        '    if (CONFIG.excludeCourses.length > 0) {\n' +
+        "      var bc = document.querySelector('.breadcrumb a[href*=\"/course/view\"]');\n" +
+        '      if (bc) {\n' +
+        '        var cn = bc.textContent.trim().toLowerCase();\n' +
+        '        for (var k = 0; k < CONFIG.excludeCourses.length; k++) {\n' +
+        '          if (cn.includes(CONFIG.excludeCourses[k].toLowerCase())) {\n' +
+        '            log("Hidden: course excluded"); return false;\n' +
+        '          }\n' +
+        '        }\n' +
+        '      }\n' +
+        '    }\n' +
+        '    log("Visible: no exclusions matched");\n' +
+        '    return true;\n' +
+        '  }\n';
+      }
+
+      var reporterCode = config.autoFillUser ?
+        "    var nameEl = document.querySelector('.usertext, .userbutton .usertext');\n" +
+        '    if (nameEl) name = nameEl.textContent.trim();\n' +
+        '    var emailEl = document.querySelector(\'a[href^="mailto:"]\');\n' +
+        "    if (emailEl) email = emailEl.href.replace('mailto:', '').split('?')[0];\n" :
+        '    // Auto-fill disabled for privacy\n';
+
+      var reporterAssign = config.autoFillUser ?
+        '    if (email) window.markerConfig.reporter.email = email;\n' +
+        '    if (name) window.markerConfig.reporter.fullName = name;\n' :
+        '';
+
+      return '<!--\n' +
+        '  Marker.io for Moodle\n' +
+        '  Installation: Site admin > Appearance > Additional HTML > Before BODY is closed\n' +
+        '  Security: ' + (isRestrictive ? 'Restrictive mode (least privilege)' : 'Permissive mode') + '\n' +
+        '-->\n' +
+        '<script>\n' +
+        '(function() {\n' +
+        '  var CONFIG = {\n' +
+        "    projectId: '" + pid + "',\n" +
+        configSection +
+        '    autoFillUser: ' + config.autoFillUser + ',\n' +
+        '    debug: ' + debug + '\n' +
+        '  };\n\n' +
+        "  if (!CONFIG.projectId || CONFIG.projectId === 'YOUR_PROJECT_ID') {\n" +
+        "    console.error('[Marker.io] Set your project ID'); return;\n" +
+        '  }\n\n' +
+        '  function log(m, d) { if (CONFIG.debug) console.log("[Marker.io]", m, d || ""); }\n\n' +
+        '  function getUserRole() {\n' +
+        '    var b = document.body;\n' +
+        "    if (!b) return 'Unknown';\n" +
+        '    var c = b.className || "";\n' +
+        "    if (c.includes('role-admin') || c.includes('pagelayout-admin')) return 'Administrator';\n" +
+        "    if (c.includes('role-teacher') || c.includes('role-editingteacher') || c.includes('editing')) return 'Teacher';\n" +
+        "    if (c.includes('role-student')) return 'Student';\n" +
+        "    if (document.querySelector('.usermenu')) return 'User';\n" +
+        "    return 'Guest';\n" +
+        '  }\n\n' +
+        '  function getPageType() {\n' +
+        '    var b = document.body;\n' +
+        "    if (!b) return '';\n" +
+        '    var c = b.className || "";\n' +
+        "    if (c.includes('pagelayout-login')) return 'login';\n" +
+        "    if (c.includes('pagelayout-admin') || c.includes('path-admin')) return 'admin';\n" +
+        "    if (c.includes('path-user')) return 'user';\n" +
+        "    if (c.includes('path-grade')) return 'grade';\n" +
+        "    if (c.includes('path-my')) return 'my';\n" +
+        "    if (c.match(/path-mod-/)) return 'mod';\n" +
+        "    if (c.includes('path-course')) return 'course';\n" +
+        "    return '';\n" +
+        '  }\n\n' +
+        shouldShowFn + '\n' +
+        '  function init() {\n' +
+        '    if (!shouldShow()) return;\n\n' +
+        '    var name = "", email = "", moodleVer = "", theme = "", lang = "";\n' +
+        '    if (typeof M !== "undefined" && M.cfg) {\n' +
+        '      moodleVer = M.cfg.version || ""; theme = M.cfg.theme || ""; lang = M.cfg.lang || "";\n' +
+        '    }\n' +
+        reporterCode + '\n' +
+        '    window.markerConfig = {\n' +
+        '      project: CONFIG.projectId,\n' +
+        "      source: 'snippet',\n" +
+        '      reporter: {},\n' +
+        '      customData: {\n' +
+        "        lms: 'Moodle',\n" +
+        '        userRole: getUserRole(),\n' +
+        '        moodleVersion: moodleVer,\n' +
+        '        theme: theme,\n' +
+        '        language: lang\n' +
+        '      }\n' +
+        '    };\n' +
+        reporterAssign + '\n' +
+        '    log("Config:", window.markerConfig);\n\n' +
+        "    var s = document.createElement('script');\n" +
+        "    s.src = 'https://edge.marker.io/latest/shim.js';\n" +
+        '    s.async = true;\n' +
+        '    document.head.appendChild(s);\n' +
+        '  }\n\n' +
+        "  if (document.readyState === 'loading') {\n" +
+        "    document.addEventListener('DOMContentLoaded', init);\n" +
+        '  } else { init(); }\n' +
+        '})();\n' +
+        '</' + 'script>';
+    }
+
+    function generateCanvasCode(projectId, config, debug) {
+      var pid = projectId || 'YOUR_PROJECT_ID';
+      var isRestrictive = config.mode === 'restrictive';
+
+      // Map roles for Canvas
+      function mapRole(r) {
+        return r.replace("'Administrator'", "'admin'")
+                .replace("'Teacher'", "'teacher'")
+                .replace("'Student'", "'student'")
+                .replace("'Guest'", "'guest'")
+                .replace("'User'", "'user'");
+      }
+
+      var configSection;
+      if (isRestrictive) {
+        var allowPages = config.allowPages.map(function(p) {
+          return p.replace("'mod'", "'assignment'").replace("'my'", "'dashboard'").replace("'admin'", "'settings'");
+        });
+        configSection =
+        "    // RESTRICTIVE MODE: Widget only shows on allowed pages/roles\n" +
+        "    mode: 'restrictive',\n" +
+        '    allowPages: [' + allowPages.join(', ') + '],\n' +
+        '    allowRoles: [' + config.allowRoles.map(mapRole).join(', ') + '],\n' +
+        '    onlyCourses: [' + config.onlyCourses.join(', ') + '],\n';
+      } else {
+        var excludePages = config.excludePages.map(function(p) {
+          return p.replace("'admin'", "'settings'").replace("'user'", "'profile'");
+        });
+        configSection =
+        "    // PERMISSIVE MODE: Widget shows everywhere except excluded\n" +
+        "    mode: 'permissive',\n" +
+        '    excludePages: [' + excludePages.join(', ') + '],\n' +
+        '    excludeRoles: [' + config.excludeRoles.map(mapRole).join(', ') + '],\n' +
+        '    excludeCourses: [' + config.excludeCourses.join(', ') + '],\n';
+      }
+
+      var shouldShowFn;
+      if (isRestrictive) {
+        shouldShowFn =
+        '  function shouldShow() {\n' +
+        '    var role = getUserRole(), page = getPageType();\n' +
+        '    log("Role:", role); log("Page:", page);\n' +
+        '    var roleMatch = false;\n' +
+        '    for (var i = 0; i < CONFIG.allowRoles.length; i++) {\n' +
+        '      if (CONFIG.allowRoles[i] === role) { roleMatch = true; break; }\n' +
+        '    }\n' +
+        '    if (!roleMatch) { log("Hidden: role not allowed"); return false; }\n' +
+        '    var pageMatch = false;\n' +
+        '    for (var j = 0; j < CONFIG.allowPages.length; j++) {\n' +
+        '      if (CONFIG.allowPages[j] === page) { pageMatch = true; break; }\n' +
+        '    }\n' +
+        '    if (!pageMatch) { log("Hidden: page not allowed"); return false; }\n' +
+        '    if (CONFIG.onlyCourses.length > 0 && typeof ENV !== "undefined" && ENV.COURSE) {\n' +
+        '      var cn = (ENV.COURSE.name || "").toLowerCase();\n' +
+        '      var courseMatch = false;\n' +
+        '      for (var k = 0; k < CONFIG.onlyCourses.length; k++) {\n' +
+        '        if (cn.includes(CONFIG.onlyCourses[k].toLowerCase())) { courseMatch = true; break; }\n' +
+        '      }\n' +
+        '      if (!courseMatch) { log("Hidden: course not allowed"); return false; }\n' +
+        '    }\n' +
+        '    return true;\n' +
+        '  }\n';
+      } else {
+        shouldShowFn =
+        '  function shouldShow() {\n' +
+        '    var role = getUserRole(), page = getPageType();\n' +
+        '    log("Role:", role); log("Page:", page);\n' +
+        '    for (var i = 0; i < CONFIG.excludeRoles.length; i++) {\n' +
+        '      if (CONFIG.excludeRoles[i] === role) { log("Hidden: role excluded"); return false; }\n' +
+        '    }\n' +
+        '    for (var j = 0; j < CONFIG.excludePages.length; j++) {\n' +
+        '      if (CONFIG.excludePages[j] === page) { log("Hidden: page excluded"); return false; }\n' +
+        '    }\n' +
+        '    if (CONFIG.excludeCourses.length > 0 && typeof ENV !== "undefined" && ENV.COURSE) {\n' +
+        '      var cn = (ENV.COURSE.name || "").toLowerCase();\n' +
+        '      for (var k = 0; k < CONFIG.excludeCourses.length; k++) {\n' +
+        '        if (cn.includes(CONFIG.excludeCourses[k].toLowerCase())) {\n' +
+        '          log("Hidden: course excluded"); return false;\n' +
+        '        }\n' +
+        '      }\n' +
+        '    }\n' +
+        '    return true;\n' +
+        '  }\n';
+      }
+
+      var reporterCode = config.autoFillUser ?
+        '    if (typeof ENV !== "undefined" && ENV.current_user) {\n' +
+        '      name = ENV.current_user.display_name || "";\n' +
+        '      email = ENV.current_user.email || "";\n' +
+        '    }\n' :
+        '    // Auto-fill disabled for privacy\n';
+
+      var reporterAssign = config.autoFillUser ?
+        '    if (email) window.markerConfig.reporter.email = email;\n' +
+        '    if (name) window.markerConfig.reporter.fullName = name;\n' :
+        '';
+
+      return '/*\n' +
+        ' * Marker.io for Canvas LMS\n' +
+        ' * Installation: Admin > Settings > Themes > Edit Theme > JavaScript\n' +
+        ' * Security: ' + (isRestrictive ? 'Restrictive mode (least privilege)' : 'Permissive mode') + '\n' +
+        ' */\n' +
+        '(function() {\n' +
+        '  var CONFIG = {\n' +
+        "    projectId: '" + pid + "',\n" +
+        configSection +
+        '    autoFillUser: ' + config.autoFillUser + ',\n' +
+        '    debug: ' + debug + '\n' +
+        '  };\n\n' +
+        "  if (!CONFIG.projectId || CONFIG.projectId === 'YOUR_PROJECT_ID') {\n" +
+        "    console.error('[Marker.io] Set your project ID'); return;\n" +
+        '  }\n\n' +
+        '  function log(m, d) { if (CONFIG.debug) console.log("[Marker.io]", m, d || ""); }\n\n' +
+        '  function getUserRole() {\n' +
+        '    if (typeof ENV !== "undefined") {\n' +
+        '      if (ENV.current_user_is_admin) return "admin";\n' +
+        '      if (ENV.current_user_roles) {\n' +
+        '        var roles = ENV.current_user_roles;\n' +
+        '        if (roles.includes("teacher") || roles.includes("ta")) return "teacher";\n' +
+        '        if (roles.includes("student")) return "student";\n' +
+        '        if (roles.includes("observer")) return "observer";\n' +
+        '      }\n' +
+        '    }\n' +
+        "    if (document.querySelector('.ic-app-header__user-name')) return 'user';\n" +
+        "    return 'guest';\n" +
+        '  }\n\n' +
+        '  function getPageType() {\n' +
+        '    var path = window.location.pathname;\n' +
+        "    if (path.includes('/login')) return 'login';\n" +
+        "    if (path.includes('/settings') || path.includes('/admin')) return 'settings';\n" +
+        "    if (path.includes('/profile')) return 'profile';\n" +
+        "    if (path.includes('/grades')) return 'grade';\n" +
+        "    if (path === '/' || path.includes('/dashboard')) return 'dashboard';\n" +
+        "    if (path.match(/\\/courses\\/\\d+\\/assignments/)) return 'assignment';\n" +
+        "    if (path.match(/\\/courses\\/\\d+\\/quizzes/)) return 'assignment';\n" +
+        "    if (path.includes('/courses/')) return 'course';\n" +
+        "    return '';\n" +
+        '  }\n\n' +
+        shouldShowFn + '\n' +
+        '  function init() {\n' +
+        '    if (!shouldShow()) return;\n\n' +
+        '    var name = "", email = "", courseName = "", courseId = "";\n' +
+        reporterCode +
+        '    if (typeof ENV !== "undefined" && ENV.COURSE) {\n' +
+        '      courseName = ENV.COURSE.name || "";\n' +
+        '      courseId = ENV.COURSE.id || "";\n' +
+        '    }\n\n' +
+        '    window.markerConfig = {\n' +
+        '      project: CONFIG.projectId,\n' +
+        "      source: 'snippet',\n" +
+        '      reporter: {},\n' +
+        '      customData: {\n' +
+        "        lms: 'Canvas',\n" +
+        '        userRole: getUserRole(),\n' +
+        '        courseName: courseName,\n' +
+        '        courseId: courseId\n' +
+        '      }\n' +
+        '    };\n' +
+        reporterAssign +
+        '    Object.keys(window.markerConfig.customData).forEach(function(k) {\n' +
+        '      if (!window.markerConfig.customData[k]) delete window.markerConfig.customData[k];\n' +
+        '    });\n\n' +
+        '    log("Config:", window.markerConfig);\n\n' +
+        "    var s = document.createElement('script');\n" +
+        "    s.src = 'https://edge.marker.io/latest/shim.js';\n" +
+        '    s.async = true;\n' +
+        '    document.head.appendChild(s);\n' +
+        '  }\n\n' +
+        "  if (document.readyState === 'loading') {\n" +
+        "    document.addEventListener('DOMContentLoaded', init);\n" +
+        '  } else { init(); }\n' +
+        '})();';
+    }
+
+    function copyCode() {
+      var output = document.getElementById('output');
+      output.select();
+      output.setSelectionRange(0, 99999);
+
+      try {
+        document.execCommand('copy');
+        var msg = document.getElementById('copySuccess');
+        msg.style.display = 'inline';
+        setTimeout(function() { msg.style.display = 'none'; }, 2000);
+      } catch (e) {
+        // Fallback for modern browsers
+        navigator.clipboard.writeText(output.value);
+      }
+    }
+
+    function downloadCode() {
+      var lms = document.getElementById('lms').value;
+      var code = document.getElementById('output').value;
+      var filename = 'marker-' + lms + '.html';
+      if (lms === 'canvas') filename = 'marker-canvas.js';
+
+      var blob = new Blob([code], { type: 'text/plain' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    // Generate initial code
+    generateCode();
+  </script>
+</body>
+</html>
